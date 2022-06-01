@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    parallel:
+       maximumNumberOfProcesses: 3
+    paths:
+        - src
+        - tests
+    doctrine:
+        ormRepositoryClass: Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml

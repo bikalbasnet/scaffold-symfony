@@ -1,0 +1,38 @@
+version: "3.9"
+
+networks:
+  default:
+    name: 'scaffold_network'
+
+services:
+  scaffold_app:
+    image: webdevops/php-nginx-dev:8.1
+    container_name: scaffold_app
+    volumes:
+      - ./:/app
+      - ~/.composer/cache/:/home/application/.composer/cache/
+    ports:
+      - "80:80"
+    working_dir: /app
+    environment:
+      - WEB_DOCUMENT_ROOT=/app/public
+      - WEB_ALIAS_DOMAIN=scaffold.local
+
+  scaffold_redis:
+    image: redis
+    container_name: scaffold_redis
+    expose:
+      - 6379
+    ports:
+      - "6380:6379"
+
+  scaffold_db:
+    image: mysql:8
+    container_name: scaffold_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    ports:
+      - "3306:3306"
